@@ -52,7 +52,7 @@ const Login = () => {
                             <label htmlFor="email">Email</label>
                             <input type="email" name="email" id="" onChange={(e) => setEmail(e.target.value)} placeholder='Enter Your Email Address' />
                         </div>
-                        <button className='btn' onClick={sendOtp}>Login
+                        <button className='btn' onClick={sendOtp} >Login
                         {
                             spiner ? <span><Spinner animation="border" /></span>:""
                         }

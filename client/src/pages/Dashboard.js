@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import ChatBotWidget from '../components/ChatBot/ChatBotWidget';
+import "../styles/mix.css"
 const Dashboard = () => {
 
   const navigate = useNavigate();
@@ -9,8 +11,9 @@ const Dashboard = () => {
     let token = localStorage.getItem("userdbtoken");
     if (token) {
       console.log("user valid")
+      navigate('/dashboard')
     } else {
-      navigate("*")
+      navigate("/register")
     }
   }
 
@@ -18,7 +21,11 @@ const Dashboard = () => {
     userValid();
   }, [])
   return (
-    <div>Dashboard</div>
+    <div className='d-board'>
+      <h2 >Ask your questions here</h2>
+      <ChatBotWidget />
+    </div>
+
   )
 }
 
