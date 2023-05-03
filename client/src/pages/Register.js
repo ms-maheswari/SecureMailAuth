@@ -63,16 +63,16 @@ const Register = () => {
           <form>
             <div className="form_input">
               <label htmlFor="fname">Name</label>
-              <input type="text" name="fname" id="" onChange={handleChange} placeholder='Enter Your Name' />
+              <input type="text" name="fname" id="fname" onChange={handleChange} placeholder='Enter Your Name' />
             </div>
             <div className="form_input">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id=""  onChange={handleChange}  placeholder='Enter Your Email Address' />
+              <input type="email" name="email" id="email"  onChange={handleChange}  placeholder='Enter Your Email Address' />
             </div>
             <div className="form_input">
               <label htmlFor="password">Password</label>
               <div className='two'>
-              <input type={!passhow ? "password" : "text"} name="password" id=""  onChange={handleChange}  placeholder='Enter Your password' />
+              <input type={!passhow ? "password" : "text"} name="password" id="password"  onChange={handleChange}  placeholder='Enter Your password' />
               <div className='showpass' onClick={()=>setPassShow(!passhow)} >
               {!passhow ? "Show" : "Hide"}
               </div>
