@@ -16,6 +16,7 @@ const Headers = () => {
           </Nav>
         </Container>
       </Navbar>
+    <h3 style={{"text-align": "center", "margin-top": "50px", "fontFamily":"oblique"}}>Please login or register to continue</h3>
     </>
   )
 }
