@@ -47,6 +47,7 @@ const Register = () => {
         navigate("/")
       }else{
         toast.error(response.response.data.error);
+        navigate('/login')
       }
     }
   }
