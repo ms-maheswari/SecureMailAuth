@@ -14,7 +14,7 @@ app.use(cors());
 app.use(router);
 
 app.get('/',(_req, res) => {
-    res.send("This is a stack overflow clone API")
+    res.send("This is a API")
 })
 
 app.listen(PORT,()=>{

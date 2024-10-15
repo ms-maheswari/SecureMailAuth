@@ -12,11 +12,10 @@ const Headers = () => {
           <NavLink to="/login" className=" text-light text-decoration-none">Login</NavLink>
           <Nav className="">
             <NavLink to="/register" className="mt-3 mx-2 text-light text-decoration-none">Register</NavLink>
-
           </Nav>
         </Container>
       </Navbar>
-    <h3 style={{"text-align": "center", "margin-top": "50px", "fontFamily":"oblique"}}>Please login or register to continue</h3>
+    {/* <h3 style={{"textAlign": "center", "marginTop": "50px", "fontFamily":"oblique"}}>Please login or register to continue</h3> */}
     </>
   )
 }

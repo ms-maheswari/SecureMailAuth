@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import ChatBotWidget from '../components/ChatBot/ChatBotWidget';
 import "../styles/mix.css"
 const Dashboard = () => {
 
@@ -22,8 +21,7 @@ const Dashboard = () => {
   }, [])
   return (
     <div className='d-board'>
-      <h2 >Ask your questions here</h2>
-      <ChatBotWidget />
+      <h2 >Welcome to our website</h2>
     </div>
 
   )
