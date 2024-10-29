@@ -129,7 +129,7 @@ exports.userLogin = async(req,res)=>{
     try {
         const otpverification = await userotp.findOne({email:email});
 
-        if(otpverification.otp === otp){
+        if(otpverification.otp == otp){
             const preuser = await users.findOne({email:email});
 
             // token generate
