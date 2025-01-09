@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-import "../styles/mix.css"
+import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
 
   const navigate = useNavigate();
@@ -10,9 +8,8 @@ const Dashboard = () => {
     let token = localStorage.getItem("userdbtoken");
     if (token) {
       console.log("user valid")
-      navigate('/dashboard')
     } else {
-      navigate("/register")
+      navigate("*")
     }
   }
 
@@ -20,10 +17,9 @@ const Dashboard = () => {
     userValid();
   }, [])
   return (
-    <div className='d-board'>
-      <h2 >Welcome to our website</h2>
+    <div>
+      <h1 className='p-12 m-12 text-xl font-bold text-center'>Welcome to our page</h1>  
     </div>
-
   )
 }
 

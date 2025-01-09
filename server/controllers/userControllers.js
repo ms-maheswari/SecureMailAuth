@@ -56,10 +56,10 @@ exports.userOtpSend = async (req, res) => {
         const presuer = await users.findOne({ email: email });
 
         if (presuer) {
+            
             const OTP = Math.floor(100000 + Math.random() * 900000);
 
             const existEmail = await userotp.findOne({ email: email });
-
 
             if (existEmail) {
                 const updateData = await userotp.findByIdAndUpdate({ _id: existEmail._id }, {
@@ -67,12 +67,22 @@ exports.userOtpSend = async (req, res) => {
                 }, { new: true }
                 );
                 await updateData.save();
-
+                
+                const htmlContent = `
+                <html>
+                <body>
+                    <h1>OTP Verification</h1>
+                    <p>Your OTP is: <strong>${OTP}</strong></p>
+                    <p>Thank you</p>
+                </body>
+                </html>`;
+        
+                
                 const mailOptions = {
                     from: process.env.EMAIL,
                     to: email,
                     subject: "Sending Email For Otp Validation",
-                    text: `OTP:- ${OTP}`
+                    html : htmlContent
                 }
 
 
@@ -118,28 +128,39 @@ exports.userOtpSend = async (req, res) => {
     }
 };
 
+exports.userLogin = async (req, res) => {
+    const { email, otp } = req.body;
 
-exports.userLogin = async(req,res)=>{
-    const {email,otp} = req.body;
-
-    if(!otp || !email){
-        res.status(400).json({ error: "Please Enter Your OTP and email" })
+    if (!otp || !email) {
+        return res.status(400).json({ error: "Please Enter Your OTP and Email" });
     }
 
     try {
-        const otpverification = await userotp.findOne({email:email});
+        const otpVerification = await userotp.findOne({ email: email });
 
-        if(otpverification.otp == otp){
-            const preuser = await users.findOne({email:email});
+        if (!otpVerification) {
+            return res.status(400).json({ error: "OTP not found or expired" });
+        }
 
-            // token generate
-            const token = await preuser.generateAuthtoken();
-           res.status(200).json({message:"User Login Succesfully Done",userToken:token});
+        // Check OTP validity period (e.g., 5 minutes)
+        const currentTime = Date.now();
+        const otpCreationTime = new Date(otpVerification.createdAt).getTime();
+        const timeDifference = (currentTime - otpCreationTime) / 1000; // in seconds
 
-        }else{
-            res.status(400).json({error:"Invalid Otp"})
+        if (timeDifference > 300) { // 300 seconds = 5 minutes
+            return res.status(400).json({ error: "OTP has expired. Please request a new one." });
+        }
+
+        if (otpVerification.otp === otp) {
+            const preUser = await users.findOne({ email: email });
+
+            // Token generation
+            const token = await preUser.generateAuthtoken();
+            return res.status(200).json({ message: "User Login Successfully Done", userToken: token });
+        } else {
+            return res.status(400).json({ error: "Invalid OTP" });
         }
     } catch (error) {
-        res.status(400).json({ error: "Invalid Details", error })
+        return res.status(400).json({ error: "Invalid Details", error });
     }
-}
+};

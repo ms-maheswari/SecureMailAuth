@@ -1,26 +1,20 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
-
 
 const userOtpSchema = new mongoose.Schema({
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error("Not Valid Email")
-            }
-        }
+    email: {
+        type: String,
+        required: true
     },
-    otp:{
-        type:String,
-        required:true
+    otp: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        expires: 300 // The OTP document will automatically be removed after 300 seconds (5 minutes).
     }
 });
 
-
-// user otp model
-const userotp = new mongoose.model("userotps",userOtpSchema);
-
-module.exports = userotp
+const userotp = mongoose.model("userotp", userOtpSchema);
+module.exports = userotp;
